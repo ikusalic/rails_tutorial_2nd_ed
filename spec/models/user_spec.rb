@@ -211,4 +211,13 @@ describe User do
       its(:followed_users) { should_not include(other_user) }
     end
   end
+
+  describe "accessible attributes" do
+    it "should not allow access to admin attribute" do
+      expect do
+        User.new(name: "Example User", email: "user@example.com",
+            password: "foobar", password_confirmation: "foobar", admin: true)
+      end.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end    
+  end
 end
